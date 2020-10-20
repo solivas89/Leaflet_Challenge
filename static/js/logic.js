@@ -112,7 +112,7 @@ d3.json(earthqakeUrl, function(data){
 
         // Create our map, giving it the satellite and earthquakes and techtonic plates layers to display on load
         var myMap = L.map("map",{
-            center: [41.2237 , -80.9060],
+            center: [35, -35],
             zoom: 2,
             layers: [satelliteMap, earthquakesLayer, techPlatesLayer]
         });
