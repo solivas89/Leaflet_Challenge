@@ -14,7 +14,7 @@ function markerSize(magnitude) {
 
 // Perform a GET request to the query URL
 d3.json(earthqakeUrl, function(data){
-    console.log(data)
+    // console.log(data)
     // Once we get a response, send the data.features object to the createFeatures function
     createFeatures(data.features);
 });
@@ -92,17 +92,29 @@ d3.json(earthqakeUrl, function(data){
             id: "outdoors-v11",
             accessToken: API_KEY
         });
+
+        var techPlatesLayer = L.layerGroup();
+
+        // Grabbing our GeoJSON data
+        d3.json(techplatesURL, function(data1){
+            // console.log(techplatesURL)
+            // Creating a GeoJSON layer with the retrieved data
+            L.geoJson(data1, {
+                style: "orange"
+            }).addTo(techPlatesLayer)
+        });
       
         // Create Overlay Object to Hold Overlay Layers
         var overlayMaps = {
             Earthquake: earthquakesLayer,
+            Fault_Lines: techPlatesLayer
         };
 
-        // Create our map, giving it the tile and layers to display on load
+        // Create our map, giving it the satellite and earthquakes and techtonic plates layers to display on load
         var myMap = L.map("map",{
             center: [41.2237 , -80.9060],
             zoom: 2,
-            layers: [satelliteMap, earthquakesLayer]
+            layers: [satelliteMap, earthquakesLayer, techPlatesLayer]
         });
 
         // // Define baseMaps Object to Hold Base Layers
