@@ -14,7 +14,7 @@ function markerSize(magnitude) {
 
 // Perform a GET request to the query URL
 d3.json(earthqakeUrl, function(data){
-    // console.log(data)
+    console.log(data)
     // Once we get a response, send the data.features object to the createFeatures function
     createFeatures(data.features);
 });
@@ -37,25 +37,29 @@ d3.json(earthqakeUrl, function(data){
             // console.log(depth)
 
             // Create an if statement to determint the colors of the Earthquake markers based off depth
-            if (depth <10) {
-                color = "lime"
-            }
-            else if (depth < 30) {
-                color = "green"
-            }
-            else if (depth < 50) {
-                color = " red"
-            }
-            else {
-                color = "maroon"
-            }
+            function markerColor(depth) {
+                switch (true) {
+                case depth < 10:
+                    return "green";
+                case depth < 30:
+                    return "lime";
+                case depth < 50:
+                    return "yellow";
+                case depth < 70:
+                    return "orange";
+                case depth < 90:
+                    return "red";
+                default:
+                    return "maroon";
+                };
+            };
 
             // Push the data to the markers layer and Give each feature a popup describing the place and time of the earthquake
             earthquakeMarkers.push(
                 L.circle(lat_lng, {
                     fillOpacity: 0.75,
                     color: "white",
-                    fillColor: color,
+                    fillColor: markerColor(depth),
                     stroke: false,
                     radius: markerSize(data[i].properties.mag)
                 }).bindPopup("<h3>" + data[i].properties.title + "</h3><hr><h3>"  
