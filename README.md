@@ -14,7 +14,7 @@ The USGS is interested in building a new set of tools that will allow them visua
 
    When you visit the site you will see that I created a map using Leaflet that plots all of the earthquakes from your data set based on their longitude and latitude.
 
-	My Earthquake Site can be visited at the following link: https://solivas89.github.io/Leaflet_Challenge/
+My Earthquake Site can be visited at the following link: https://solivas89.github.io/Leaflet_Challenge/
   
  * There are data markers thatreflect the magnitude of the earthquake by their size and and depth of the earth quake by color. Earthquakes with higher magnitudes should appear larger and earthquakes with greater depth should appear darker in color.
 

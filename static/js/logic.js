@@ -36,13 +36,13 @@ d3.json(earthqakeUrl, function(data){
             var lat_lng = [lat, lng];
             // console.log(depth)
 
-            // Create an if statement to determint the colors of the Earthquake markers based off depth
+            // Create an function w/ switch to determint the colors of the Earthquake markers based off depth
             function markerColor(depth) {
                 switch (true) {
                 case depth < 10:
-                    return "green";
-                case depth < 30:
                     return "lime";
+                case depth < 30:
+                    return "green";
                 case depth < 50:
                     return "yellow";
                 case depth < 70:
@@ -70,6 +70,7 @@ d3.json(earthqakeUrl, function(data){
         // Set our Earthquak lare group to call into our creat map function
         var earthquakesLayer = L.layerGroup(earthquakeMarkers);
 
+        // Sending our earthquakes layer to the createMap function
         createMap(earthquakesLayer)
     }
 
@@ -134,4 +135,21 @@ d3.json(earthqakeUrl, function(data){
         L.control.layers(baseMaps, overlayMaps, {
           collapsed: false
         }).addTo(myMap);
+
+        // Set up the legend
+        var legend = L.control({ position: "bottomright", fillcolor: "white" });
+        legend.onAdd = function() {
+            var div = L.DomUtil.create("div", "info legend");
+            var depth = ["-10-10", "10-30", "30-50", "50-70", "70-90", "90+"];
+            var labels = ["lime", "green", "yellow", "orange", "red", "maroon"]
+
+            div.innerHTML = '<p>Depth</p'
+
+            for (var i = 0; i < depth.length; i++) {
+                div.innerHTML += '<i style="background:' + labels[i] + '"></i> ' + depth[i]+ " <br> "
+            }
+        return div;
+        }
+        // Adding legend to the map
+        legend.addTo(myMap)
     }
